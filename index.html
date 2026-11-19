@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d14">
+  <meta name="description" content="Websiter is an open-source C# and .NET web application framework with independent worker processes, native IPC, reusable HTML components, and a modern frontend pipeline.">
+  <title>Websiter — Build without boundaries.</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%238c7bff'/%3E%3Cpath d='M8 19h9l6 25 8-19h6l8 19 8-25h9L50 49h-9l-7-17-7 17h-9z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root{color-scheme:dark;--bg:#090d14;--panel:#101722;--panel2:#0c131e;--line:#202c3b;--text:#eef3fb;--muted:#9aa9bc;--purple:#8c7bff;--cyan:#56d7e8;--green:#80e0b0;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+    body:before{content:"";position:absolute;inset:0 0 auto;height:780px;pointer-events:none;background:radial-gradient(ellipse at 50% -10%,rgba(112,91,255,.22),transparent 58%),radial-gradient(ellipse at 88% 28%,rgba(45,188,212,.09),transparent 35%);z-index:-1}
+    a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .nav{height:76px;display:flex;align-items:center;position:sticky;top:0;background:rgba(9,13,20,.84);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07);z-index:20}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;width:min(var(--max),calc(100% - 48px));margin:auto}
+    .brand{display:flex;align-items:center;gap:11px;font-size:17px;font-weight:780;letter-spacing:-.5px}.brand-mark{height:34px;width:34px;border-radius:11px;background:linear-gradient(135deg,#a092ff,#6e5be9);display:grid;place-items:center;box-shadow:0 5px 22px #7865ff44}.brand-mark svg{width:25px}
+    .links{display:flex;align-items:center;gap:30px;color:var(--muted);font-size:13px;font-weight:600}.links a:hover{color:white}.nav-cta{padding:9px 15px;border:1px solid #39445a;border-radius:9px;color:#fff!important;background:#151d2b}
+    .menu{display:none;background:none;border:0;color:white;font-size:24px}
+    .hero{padding:100px 0 86px;text-align:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border:1px solid #3b365e;border-radius:99px;background:#17152a;color:#c9c0ff;font-size:12px;font-weight:700;letter-spacing:.04em}.dot{height:7px;width:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green)}
+    h1{font-size:clamp(48px,8vw,88px);line-height:1.02;letter-spacing:-.075em;margin:25px auto 20px;max-width:950px;font-weight:820}.gradient{background:linear-gradient(100deg,#fff 15%,#b9adff 55%,#73e2ed);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{max-width:710px;margin:0 auto;color:var(--muted);font-size:clamp(16px,2vw,19px);line-height:1.75}.actions{display:flex;justify-content:center;gap:12px;margin:32px 0 25px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 19px;border-radius:10px;font-weight:700;font-size:14px;transition:.2s;border:1px solid transparent}.btn:hover{transform:translateY(-2px)}.primary{background:linear-gradient(135deg,#9788ff,#7161e8);color:white;box-shadow:0 8px 30px #7865ff3b}.secondary{background:#121b28;border-color:#303d50;color:#eaf0fa}.subnote{font-size:12px!important;color:#77879b!important}
+    .badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:22px}.badge{border:1px solid #273447;background:#101722;border-radius:7px;padding:4px 9px;font-size:11px;color:#aebbd0}
+    .terminal-wrap{max-width:850px;margin:56px auto 0;text-align:left;position:relative}.terminal-wrap:before{content:"";position:absolute;inset:20% 10%;background:#7967ff;filter:blur(90px);opacity:.14;z-index:-1}.terminal{background:#0b111a;border:1px solid #2b3749;border-radius:14px;overflow:hidden;box-shadow:0 30px 90px #0008}.termbar{height:43px;background:#111a27;border-bottom:1px solid #253244;display:flex;align-items:center;padding:0 15px;gap:7px}.traffic{width:9px;height:9px;border-radius:50%;background:#ed6b6b}.traffic:nth-child(2){background:#e7bd62}.traffic:nth-child(3){background:#65c995}.termname{margin:auto;color:#718198;font-size:11px;margin-left:calc(50% - 70px)}.termcontent{padding:24px 28px;font:13px/2 "SFMono-Regular",Consolas,monospace;color:#b6c4d8;overflow:auto}.prompt{color:#9b8cff}.cmd{color:#e8eef8}.comment{color:#65778d}.success{color:#7fe0b0}
+    section{padding:82px 0}.section-head{text-align:center;max-width:700px;margin:0 auto 42px}.kicker{color:#9a8cff;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.section-head h2{font-size:clamp(30px,4vw,46px);line-height:1.12;letter-spacing:-.05em;margin:12px 0}.section-head p{color:var(--muted);margin:0;font-size:16px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{padding:23px;background:linear-gradient(145deg,#121c29,#0d141e);border:1px solid #243144;border-radius:13px;min-height:190px;transition:.2s}.feature:hover{border-color:#6559bd;transform:translateY(-3px)}.icon{width:38px;height:38px;border-radius:10px;background:#211e3b;color:#b9adff;display:grid;place-items:center;font-size:18px;margin-bottom:16px}.feature h3{margin:0 0 7px;font-size:16px;letter-spacing:-.02em}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+    .architecture{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}.arch-copy,.arch-visual{background:#0f1722;border:1px solid #263448;border-radius:15px;padding:28px}.arch-copy h3{font-size:22px;letter-spacing:-.04em;margin:0 0 12px}.arch-copy p{color:var(--muted);margin:0 0 20px}.checks{list-style:none;padding:0;margin:0;display:grid;gap:12px}.checks li{display:flex;gap:10px;color:#c5d0df;font-size:13px}.checks b{color:var(--green)}.diagram{height:100%;min-height:270px;display:flex;flex-direction:column;justify-content:center;gap:14px;font:12px "SFMono-Regular",Consolas,monospace}.host{padding:18px;text-align:center;border:1px solid #6356b4;background:#1a1930;border-radius:10px;color:#ded8ff}.arrow{text-align:center;color:#8d81ee;font-size:18px}.workers{display:grid;grid-template-columns:1fr 1fr;gap:12px}.worker{padding:18px 10px;text-align:center;border:1px solid #28505a;background:#10232a;border-radius:9px;color:#a6edf1}.worker small{display:block;color:#789ba4;margin-top:5px}
+    .code-section{background:linear-gradient(180deg,transparent,#0d1420 45%,transparent)}.code-card{max-width:850px;margin:auto;border:1px solid #2a374b;border-radius:14px;overflow:hidden;background:#0b111a}.code-title{padding:13px 18px;border-bottom:1px solid #273448;color:#91a0b5;font-size:12px;display:flex;justify-content:space-between}.copy{background:#172235;color:#cbd6e5;border:1px solid #34435a;border-radius:6px;padding:5px 9px;font-size:11px;cursor:pointer}.code-card pre{margin:0;padding:24px;overflow:auto;color:#c8d3e2;font:13px/1.9 "SFMono-Regular",Consolas,monospace}.kw{color:#c6a5ff}.str{color:#a8e6c2}.fn{color:#8bd8e9}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{padding:22px;border:1px solid #263447;border-radius:12px;background:#101722}.num{font:700 12px monospace;color:#9b8cff}.step h3{font-size:16px;margin:9px 0 6px}.step p{color:var(--muted);font-size:13px;margin:0 0 14px}.step code{display:block;background:#080e16;border:1px solid #202c3c;padding:9px 10px;border-radius:7px;color:#b9adff;font:12px monospace;overflow:auto}
+    .templates{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.template{padding:20px;border:1px solid #263448;border-radius:12px;background:#101722}.template h3{margin:0 0 5px;font-size:15px}.template p{margin:0;color:var(--muted);font-size:13px}.template code{display:inline-block;color:#b8adff;background:#211e3b;border-radius:5px;padding:3px 7px;margin-top:14px;font-size:11px}
+    .cli{border:1px solid #27364a;border-radius:13px;overflow:hidden;background:#0f1722}.cli-row{display:grid;grid-template-columns:310px 1fr;gap:20px;padding:13px 18px;border-bottom:1px solid #202c3b;font-size:13px}.cli-row:last-child{border:0}.cli-row code{color:#b9adff;font-family:monospace}.cli-row span{color:var(--muted)}
+    .cta{padding:60px 28px;text-align:center;border:1px solid #3a3566;border-radius:17px;background:radial-gradient(ellipse at 50% 0%,#29234d,#111827 65%);}.cta h2{font-size:clamp(30px,5vw,48px);letter-spacing:-.055em;margin:0 0 10px}.cta p{color:var(--muted);margin:0 auto 24px;max-width:580px}.footer{padding:30px 0 38px;border-top:1px solid #202a39;color:#8493a8;font-size:12px}.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.foot-links{display:flex;gap:20px}.foot-links a:hover{color:white}
+    @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.architecture{grid-template-columns:1fr}.links{gap:16px}.cli-row{grid-template-columns:230px 1fr}}
+    @media(max-width:600px){.wrap,.nav-inner{width:min(100% - 32px,var(--max))}.nav{height:66px}.links{display:none;position:absolute;top:65px;left:0;right:0;padding:18px 22px;background:#0d1420;border-bottom:1px solid #273448;flex-direction:column;align-items:stretch}.links.open{display:flex}.links a{padding:6px}.menu{display:block}.hero{padding:76px 0 55px}h1{font-size:53px}.terminal-wrap{margin-top:38px}.termcontent{padding:18px;font-size:11px}.grid,.steps,.templates{grid-template-columns:1fr}.feature{min-height:0}.cli-row{grid-template-columns:1fr;gap:2px}.arch-copy,.arch-visual{padding:21px}section{padding:64px 0}.foot-inner{align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Websiter home">
+        <span class="brand-mark"><svg viewBox="0 0 32 24" fill="none" aria-hidden="true"><path d="M1 3h5l4 17 6-13h4l6 13 4-17h5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        websiter
+      </a>
+      <nav class="links" id="navLinks" aria-label="Main navigation">
+        <a href="#features">Features</a><a href="#architecture">Architecture</a><a href="#quickstart">Quickstart</a><a href="#cli">CLI</a><a href="https://github.com/live-by-unix/websiter/tree/main/docs">Docs</a>
+        <a class="nav-cta" href="https://github.com/live-by-unix/websiter">GitHub ↗</a>
+      </nav>
+      <button class="menu" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div class="eyebrow"><span class="dot"></span> OPEN-SOURCE .NET WEB FRAMEWORK</div>
+      <h1><span class="gradient">Build without<br>boundaries.</span></h1>
+      <p>A complete, cross-platform web application framework for C# and .NET. Build fast websites, powerful backends, and distributed applications — with independent worker processes and native IPC built in.</p>
+      <div class="actions">
+        <a class="btn primary" href="#quickstart">Get started <span>→</span></a>
+        <a class="btn secondary" href="https://github.com/live-by-unix/websiter">View on GitHub ↗</a>
+      </div>
+      <p class="subnote">Made for developers who want the whole stack, without the unnecessary complexity.</p>
+      <div class="badges">
+        <span class="badge">.NET 10 LTS</span><span class="badge">C#</span><span class="badge">Cross-platform</span><span class="badge">BSD-3-Clause</span>
+      </div>
+      <div class="terminal-wrap">
+        <div class="terminal">
+          <div class="termbar"><i class="traffic"></i><i class="traffic"></i><i class="traffic"></i><span class="termname">Terminal — MyWebsite</span></div>
+          <div class="termcontent">
+            <div><span class="prompt">❯</span> <span class="cmd">websiter new MyWebsite</span></div>
+            <div class="success">✓ Created project MyWebsite</div>
+            <div><span class="prompt">❯</span> <span class="cmd">cd MyWebsite && websiter dev</span></div>
+            <div class="success">✓ Build completed successfully</div>
+            <div class="success">✓ HTTP server listening on http://localhost:8080</div>
+            <div class="success">✓ Watching project files for changes...</div>
+            <div class="comment">Ready. Your next idea starts here.</div>
+            <div><span class="prompt">❯</span> <span class="cmd">_</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head"><div class="kicker">The framework</div><h2>Everything you need.<br><span class="gradient">Nothing in your way.</span></h2><p>A cohesive toolkit for the server, frontend, processes, and everything connecting them.</p></div>
+        <div class="grid">
+          <article class="feature"><div class="icon">⌘</div><h3>C# on .NET 10</h3><p>A first-class C# backend powered by ASP.NET Core and Kestrel. Modern, cross-platform, and built on the .NET ecosystem.</p></article>
+          <article class="feature"><div class="icon">▣</div><h3>Independent workers</h3><p>Run workers as real OS processes, each with isolated memory, its own lifecycle, logs, and health monitoring.</p></article>
+          <article class="feature"><div class="icon">⇄</div><h3>Native IPC</h3><p>Request/response, one-way messages, and pub/sub events over Unix domain sockets or Windows named pipes.</p></article>
+          <article class="feature"><div class="icon">⌁</div><h3>Powerful routing</h3><p>Path parameters, query strings, JSON bodies, named routes, and all HTTP verbs in a clean API.</p></article>
+          <article class="feature"><div class="icon">◈</div><h3>Reusable components</h3><p>Composable HTML fragments with nesting, caching, cycle detection, and file watching.</p></article>
+          <article class="feature"><div class="icon">✦</div><h3>Modern frontend pipeline</h3><p>Plain HTML, CSS, and JavaScript. Static assets, content-hashed bundles, manifests, and development live reload.</p></article>
+          <article class="feature"><div class="icon">⛨</div><h3>Security built in</h3><p>Security headers, CORS, rate limiting, input validation, secure cookie defaults, and secret references.</p></article>
+          <article class="feature"><div class="icon">⌁</div><h3>Diagnostics</h3><p>Structured logs, health endpoints, request metrics, worker status APIs, and crash reports.</p></article>
+          <article class="feature"><div class="icon">↗</div><h3>Deployment ready</h3><p>Self-contained or framework-dependent publishing, archives, systemd units, and AWS EC2 scripts.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="wrap">
+        <div class="section-head"><div class="kicker">A different approach</div><h2>Real processes.<br><span class="gradient">Real isolation.</span></h2><p>Workers aren't just background tasks. They're independent programs that communicate through a purpose-built IPC layer.</p></div>
+        <div class="architecture">
+          <div class="arch-copy">
+            <h3>Designed for distributed work.</h3>
+            <p>Your application host coordinates dedicated workers without sharing their memory. Each process can be supervised, restarted, monitored, and scaled independently.</p>
+            <ul class="checks">
+              <li><b>✓</b> Separate OS process and memory space per worker</li>
+              <li><b>✓</b> Correlation IDs for request/response messages</li>
+              <li><b>✓</b> Bounded queues for backpressure</li>
+              <li><b>✓</b> Timeouts and cancellation support</li>
+              <li><b>✓</b> Supervision with exponential backoff and restart limits</li>
+              <li><b>✓</b> Unix domain sockets and Windows named pipes</li>
+            </ul>
+          </div>
+          <div class="arch-visual">
+            <div class="diagram">
+              <div class="host">YOUR APPLICATION<br><small>WebsiterApplication · HTTP routes · Pages</small></div>
+              <div class="arrow">↙ &nbsp; IPC (UDS / named pipes) &nbsp; ↘</div>
+              <div class="workers">
+                <div class="worker">AuthWorker<small>Independent process</small></div>
+                <div class="worker">PaymentWorker<small>Independent process</small></div>
+              </div>
+              <div style="text-align:center;color:#74879b;font-size:11px">Isolated memory · Managed lifecycle · Health monitoring</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="code-section">
+      <div class="wrap">
+        <div class="section-head"><div class="kicker">Clean C# API</div><h2>Start with a few lines.</h2><p>Define routes in C#, keep pages in HTML, and let Websiter handle the plumbing.</p></div>
+        <div class="code-card">
+          <div class="code-title"><span>Program.cs</span><button class="copy" id="copyCode">Copy code</button></div>
+          <pre id="codeSample"><span class="kw">using</span> Websiter;
+
+<span class="kw">var</span> app = WebsiterApplication.Create(args);
+
+app.MapGet(<span class="str">"/"</span>, ctx =&gt;
+    ctx.Response.WriteAsync(<span class="str">"Hello Websiter!"</span>));
+
+app.MapGet(<span class="str">"/api/status"</span>, ctx =&gt;
+    ctx.WriteJsonAsync(<span class="kw">new</span> { status = <span class="str">"online"</span>, framework = <span class="str">"Websiter"</span> }));
+
+app.MapGet(<span class="str">"/users/{id}"</span>, ctx =&gt;
+    ctx.WriteJsonAsync(<span class="kw">new</span> { id = ctx.Param&lt;<span class="kw">int</span>&gt;(<span class="str">"id"</span>) }));
+
+<span class="kw">return await</span> app.RunAsync();</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="quickstart">
+      <div class="wrap">
+        <div class="section-head"><div class="kicker">Up and running</div><h2>From zero to serving.</h2><p>Install the CLI, create a project, and start building.</p></div>
+        <div class="steps">
+          <article class="step"><div class="num">01 / REQUIREMENTS</div><h3>Install .NET 10</h3><p>Get the .NET 10 SDK installed on your development machine.</p><a class="btn secondary" style="padding:8px 11px;font-size:12px" href="https://dotnet.microsoft.com/download">Get .NET 10 ↗</a></article>
+          <article class="step"><div class="num">02 / INSTALL</div><h3>Install the CLI</h3><p>Clone the repository and run the installer for your platform.</p><code>./scripts/install-cli.sh</code></article>
+          <article class="step"><div class="num">03 / CREATE</div><h3>Build your first app</h3><p>Scaffold a project and launch the development server.</p><code>websiter new MyWebsite<br>cd MyWebsite<br>websiter dev</code></article>
+        </div>
+        <div class="templates" style="margin-top:16px">
+          <article class="template"><h3>Basic website</h3><p>A simple starting point with pages and static assets.</p><code>websiter new Site</code></article>
+          <article class="template"><h3>Fullstack</h3><p>Pages, reusable components, workers, and IPC.</p><code>--template fullstack</code></article>
+          <article class="template"><h3>API / Distributed</h3><p>Build a JSON API or multiple coordinated workers.</p><code>--template api</code></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cli">
+      <div class="wrap">
+        <div class="section-head"><div class="kicker">Developer workflow</div><h2>A CLI that does the busywork.</h2><p>Scaffold, build, inspect, operate, and deploy from one command.</p></div>
+        <div class="cli">
+          <div class="cli-row"><code>websiter new &lt;name&gt;</code><span>Scaffold a new project from a template</span></div>
+          <div class="cli-row"><code>websiter dev</code><span>Build, run, watch sources, and restart on changes</span></div>
+          <div class="cli-row"><code>websiter build --release</code><span>Production build and asset pipeline</span></div>
+          <div class="cli-row"><code>websiter start / stop / restart</code><span>Manage the running application</span></div>
+          <div class="cli-row"><code>websiter workers list</code><span>Inspect and manage worker processes</span></div>
+          <div class="cli-row"><code>websiter routes</code><span>List registered HTTP routes</span></div>
+          <div class="cli-row"><code>websiter logs --follow</code><span>View application logs in real time</span></div>
+          <div class="cli-row"><code>websiter doctor</code><span>Diagnose your development environment</span></div>
+          <div class="cli-row"><code>websiter deploy aws</code><span>Package your app for deployment</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="cta">
+          <div class="kicker">Open source · BSD-3-Clause</div>
+          <h2>Your next project starts here.</h2>
+          <p>Explore the source, read the documentation, or build something with Websiter. Contributions and ideas are welcome.</p>
+          <div class="actions" style="margin:0">
+            <a class="btn primary" href="https://github.com/live-by-unix/websiter">Explore on GitHub ↗</a>
+            <a class="btn secondary" href="https://github.com/live-by-unix/websiter/tree/main/docs">Read the docs ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot-inner">
+      <div><strong style="color:#e9eef8">websiter</strong> · Build without boundaries. <br>BSD-3-Clause © <a href="https://github.com/live-by-unix">live-by-unix</a></div>
+      <div class="foot-links"><a href="https://github.com/live-by-unix/websiter">GitHub</a><a href="https://github.com/live-by-unix/websiter/tree/main/docs">Documentation</a><a href="https://github.com/live-by-unix/websiter/issues">Issues</a><a href="https://github.com/live-by-unix/websiter/blob/main/LICENSE">License</a></div>
+    </div>
+  </footer>
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.textContent = '☰';
+    }));
+    document.getElementById('copyCode').addEventListener('click', async () => {
+      const code = `using Websiter;
+
+var app = WebsiterApplication.Create(args);
+
+app.MapGet("/", ctx => ctx.Response.WriteAsync("Hello Websiter!"));
+app.MapGet("/api/status", ctx =>
+    ctx.WriteJsonAsync(new { status = "online", framework = "Websiter" }));
+app.MapGet("/users/{id}", ctx =>
+    ctx.WriteJsonAsync(new { id = ctx.Param<int>("id") }));
+
+return await app.RunAsync();`;
+      const button = document.getElementById('copyCode');
+      try {
+        await navigator.clipboard.writeText(code);
+        button.textContent = 'Copied!';
+      } catch {
+        button.textContent = 'Copy unavailable';
+      }
+      setTimeout(() => button.textContent = 'Copy code', 1800);
+    });
+  </script>
+</body>
+</html>
